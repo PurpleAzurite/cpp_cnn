@@ -13,16 +13,7 @@ namespace Engine {
 class Window
 {
     using CallbackFn = std::function<void(Event&)>;
-
-private:
-    struct WindowProps
-    {
-    public:
-        int width;
-        int height;
-        std::string_view title;
-        CallbackFn callback;
-    };
+    struct WindowProps;
 
 public:
     Window(WindowProps data);
@@ -35,6 +26,16 @@ public:
 
 private:
     GLFWwindow* m_context;
+
+    struct WindowProps
+    {
+    public:
+        int width;
+        int height;
+        std::string_view title;
+        CallbackFn callback;
+    };
+
     WindowProps m_data;
 };
 
