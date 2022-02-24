@@ -101,3 +101,14 @@ target_link_libraries(project PRIVATE spdlog)
 target_link_libraries(project PRIVATE GL)
 target_link_libraries(project PRIVATE glfw)
 target_link_libraries(project PRIVATE imgui)
+
+# ------------------------------------------------------------------------------
+# Documentation
+# ------------------------------------------------------------------------------
+find_package(Doxygen REQUIRED dot)
+if (DOXYGEN_FOUND)
+  set(DOXYGEN_GENERATE_HTML YES)
+  set(DOXYGEN_GENERATE_MAN YES)
+  set(DOXYGEN_EXCLUDE_PATTERNS */vendor/*)
+  doxygen_add_docs(doxygen ${PROJECT_SOURCE_DIR})
+endif()
