@@ -14,7 +14,18 @@ project(starter_project LANGUAGES C CXX)
 # ------------------------------------------------------------------------------
 add_library(projectStandards INTERFACE)
 target_compile_features(projectStandards INTERFACE cxx_std_20)
-target_compile_options(projectStandards INTERFACE -Wall -Wextra -Wpedantic)
+target_compile_options(projectStandards INTERFACE
+  -Wall
+  -Wextra
+  -Wpedantic
+  -Wnon-virtual-dtor
+  -Wcast-align
+  -Wconversion
+  -Wsign-conversion
+  -Wnull-dereference
+  -Wdouble-promotion
+  -Wformat=2
+)
 
 # ------------------------------------------------------------------------------
 # Vendor
