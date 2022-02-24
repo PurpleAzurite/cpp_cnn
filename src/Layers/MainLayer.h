@@ -13,7 +13,7 @@ public:
     void onDetach() override;
 
 private:
-    ImVec4 m_clearColor{0.1, 0.2, 0.3, 1.0};
+    ImVec4 m_clearColor{0.1f, 0.2f, 0.3f, 1.0f};
 };
 
 } // namespace Engine
