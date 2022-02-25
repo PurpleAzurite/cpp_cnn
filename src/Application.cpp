@@ -1,9 +1,10 @@
 // clang-format off
 #include "Application.h"
-#include "GLFW/glfw3.h"
 #include "Logging.h"
 #include "Events/WindowEvents.h"
 #include "Layers/MainLayer.h"
+#include "Layers/NetworkLayer.h"
+#include "GLFW/glfw3.h"
 // clang-format on
 
 #define BIND(x) std::bind(&Engine::Application::x, this, std::placeholders::_1)
@@ -17,6 +18,7 @@ Application::Application()
 {
     m_mainWindow->setCallbackFunction(BIND(onEvent));
     m_layers.pushLayer(new MainLayer);
+    m_layers.pushOverlay(new NetworkLayer);
 }
 
 Application::~Application()
@@ -59,7 +61,7 @@ void Application::onEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
     dispatcher.dispatch<WindowClosedEvent>(BIND(onWindowClosedEvent));
-    event.log();
+    // event.log();
 }
 
 bool Application::onWindowClosedEvent(Event& event)

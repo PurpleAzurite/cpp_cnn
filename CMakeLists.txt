@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.22)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
 # ------------------------------------------------------------------------------
 # Project
 # ------------------------------------------------------------------------------
@@ -72,6 +73,9 @@ set(SOURCE_FILES
 
   src/Renderer.h
 
+  src/Network.cpp
+  src/Network.h
+
   src/Layers/Layer.h
   src/Layers/LayerStack.cpp
   src/Layers/LayerStack.h
@@ -79,6 +83,8 @@ set(SOURCE_FILES
   src/Layers/ImGuiLayer.h
   src/Layers/MainLayer.cpp
   src/Layers/MainLayer.h
+  src/Layers/NetworkLayer.cpp
+  src/Layers/NetworkLayer.h
 )
 
 # ------------------------------------------------------------------------------
