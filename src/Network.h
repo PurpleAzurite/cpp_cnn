@@ -41,7 +41,7 @@ class Network
     using Shell = std::vector<Node>;
 
 public:
-    Network(const std::vector<unsigned int>& topography);
+    Network(const std::vector<unsigned int>& topology);
 
 public:
     void forward(const std::vector<double>& input);
@@ -49,6 +49,7 @@ public:
     std::vector<double> results() const;
 
 private:
+    std::vector<unsigned int> m_topology;
     std::vector<Shell> m_shells;
     double m_error;
     double m_recentAvgError;

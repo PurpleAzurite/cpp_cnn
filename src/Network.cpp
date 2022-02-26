@@ -79,16 +79,17 @@ unsigned int TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
 
 // Network
 Network::Network(const std::vector<unsigned int>& topology)
+    : m_topology(topology)
 {
-    const auto nLayers = topology.size();
+    const auto nLayers = m_topology.size();
     for (unsigned long l = 0; l < nLayers; ++l)
     {
         m_shells.emplace_back(Shell{});
-        unsigned int numOutputs = l == topology.size() - 1 ? 0 : topology[l + 1];
+        unsigned int numOutputs = l == m_topology.size() - 1 ? 0 : m_topology[l + 1];
         // ENGINE_INFO("Shell constructed. Position: {}", l);
 
         // Taking into account the bias node
-        for (unsigned int n = 0; n <= topology[l]; ++n)
+        for (unsigned int n = 0; n <= m_topology[l]; ++n)
         {
             m_shells.at(l).emplace_back(Node(n, numOutputs));
         }
