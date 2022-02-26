@@ -22,7 +22,7 @@ void ImGuiLayer::onAttach()
     // Windows io.ConfigViewportsNoAutoMerge = true;
     // io.ConfigViewportsNoTaskBarIcon = true;
 
-    std::string_view fontPath {"../res/JetBrainsMono-Regular.ttf"};
+    std::string_view fontPath{"../res/JetBrainsMono-Regular.ttf"};
     if (std::filesystem::exists(fontPath))
         io.Fonts->AddFontFromFileTTF(fontPath.data(), 20);
 
