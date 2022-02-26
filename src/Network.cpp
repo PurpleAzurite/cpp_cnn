@@ -1,6 +1,7 @@
 // clang-format off
 #include "Network.h"
 #include "Logging.h"
+#include <sstream>
 #include <random>
 #include <cassert>
 #include <cmath>
