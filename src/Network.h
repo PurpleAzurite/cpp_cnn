@@ -35,10 +35,10 @@ class Network
     friend class NetworkLayer;
     using Topology = std::vector<unsigned int>;
     class Node;
-    using Shell = std::vector<Node>;
+    using Shell = std::vector<Node>; // A neural network layer
 
 public:
-    Network(Topology topology);
+    explicit Network(Topology topology);
 
 public:
     void forward(const std::vector<double>& input);
