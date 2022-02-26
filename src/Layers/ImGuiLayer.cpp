@@ -1,10 +1,10 @@
 // clang-format off
 #include "ImGuiLayer.h"
 #include "../Application.h"
-#include "imgui_internal.h"
 #include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_glfw.h>
+#include <filesystem>
 // clang-format on
 
 namespace Engine {
@@ -21,6 +21,10 @@ void ImGuiLayer::onAttach()
     // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     // Windows io.ConfigViewportsNoAutoMerge = true;
     // io.ConfigViewportsNoTaskBarIcon = true;
+
+    std::string_view fontPath {"../res/JetBrainsMono-Regular.ttf"};
+    if (std::filesystem::exists(fontPath))
+        io.Fonts->AddFontFromFileTTF(fontPath.data(), 20);
 
     ImGui::StyleColorsDark();
 
