@@ -42,7 +42,7 @@ TrainingData::Topology TrainingData::topology_dont_call_unless_you_know_what_you
     return topology;
 }
 
-unsigned int TrainingData::getNextInputs(vector<double>& inputVals)
+unsigned long TrainingData::getNextInputs(vector<double>& inputVals)
 {
     inputVals.clear();
 
@@ -64,7 +64,7 @@ unsigned int TrainingData::getNextInputs(vector<double>& inputVals)
     return inputVals.size();
 }
 
-unsigned int TrainingData::getTargetOutputs(vector<double>& targetOutputVals)
+unsigned long TrainingData::getTargetOutputs(vector<double>& targetOutputVals)
 {
     targetOutputVals.clear();
 

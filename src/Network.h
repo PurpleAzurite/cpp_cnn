@@ -14,7 +14,7 @@ using namespace std;
 
 class TrainingData
 {
-    using Topology = std::vector<unsigned int>;
+    using Topology = std::vector<unsigned long>;
 
 public:
     explicit TrainingData(std::string_view path);
@@ -22,8 +22,8 @@ public:
     Topology topology_dont_call_unless_you_know_what_your_doing();
 
     // Returns the number of input values read from the file:
-    unsigned int getNextInputs(vector<double>& inputVals);
-    unsigned int getTargetOutputs(vector<double>& targetOutputVals);
+    unsigned long getNextInputs(vector<double>& inputVals);
+    unsigned long getTargetOutputs(vector<double>& targetOutputVals);
 
 private:
     ifstream m_file;
@@ -33,7 +33,7 @@ private:
 class Network
 {
     friend class NetworkLayer;
-    using Topology = std::vector<unsigned int>;
+    using Topology = std::vector<unsigned long>;
     class Node;
     using Shell = std::vector<Node>; // A neural network layer
 
