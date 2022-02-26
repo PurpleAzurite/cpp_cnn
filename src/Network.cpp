@@ -28,7 +28,7 @@ void TrainingData::getTopology(vector<unsigned int> &topology)
     }
 
     while (!ss.eof()) {
-        unsigned n;
+        unsigned int n;
         ss >> n;
         topology.push_back(n);
     }
