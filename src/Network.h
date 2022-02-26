@@ -4,15 +4,15 @@
  * function only */
 #pragma once
 
-#include <vector>
-#include <string>
-#include <iostream>
-#include <cstdlib>
 #include <cassert>
 #include <cmath>
+#include <cstdlib>
 #include <fstream>
+#include <iostream>
 #include <sstream>
+#include <string>
 #include <string_view>
+#include <vector>
 
 namespace Engine {
 
@@ -23,11 +23,11 @@ class TrainingData
 public:
     explicit TrainingData(std::string_view path);
     bool isEof(void) { return m_file.eof(); }
-    void getTopology(vector<unsigned int> &topology);
+    void getTopology(vector<unsigned int>& topology);
 
     // Returns the number of input values read from the file:
-    unsigned int getNextInputs(vector<double> &inputVals);
-    unsigned int getTargetOutputs(vector<double> &targetOutputVals);
+    unsigned int getNextInputs(vector<double>& inputVals);
+    unsigned int getTargetOutputs(vector<double>& targetOutputVals);
 
 private:
     ifstream m_file;
