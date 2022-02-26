@@ -35,7 +35,7 @@ void NetworkLayer::onUpdate(double frameTime)
     int trainingPass = 0;
     static std::vector<std::string> text;
 
-    if (ImGui::Begin("Network"))
+    ImGui::Begin("Network");
     {
         if (ImGui::Button("Train"))
         {
@@ -63,7 +63,8 @@ void NetworkLayer::onUpdate(double frameTime)
                 m_net.backward(targetVals);
 
                 // Report how well the training is working, average over recent samples:
-                text.emplace_back(std::string("Net recenet avg. error: " + std::to_string(m_net.m_recentAvgError)));
+                text.emplace_back(std::string("Net recenet avg. error: " +
+                                              std::to_string(m_net.m_recentAvgError)));
             }
         }
 
@@ -76,9 +77,8 @@ void NetworkLayer::onUpdate(double frameTime)
             if (count % 5 == 0)
                 ImGui::Separator();
         }
-
-        ImGui::End();
     }
+    ImGui::End();
 }
 
 void NetworkLayer::onDetach() {}
