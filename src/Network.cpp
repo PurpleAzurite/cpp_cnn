@@ -10,8 +10,9 @@ namespace Engine {
 
 // Training Data
 TrainingData::TrainingData(std::string_view path)
+    : m_file(path.data())
 {
-    m_trainingDataFile.open(path.data());
+    assert(m_file.is_open());
 }
 
 void TrainingData::getTopology(vector<unsigned> &topology)
@@ -19,7 +20,7 @@ void TrainingData::getTopology(vector<unsigned> &topology)
     string line;
     string label;
 
-    getline(m_trainingDataFile, line);
+    getline(m_file, line);
     stringstream ss(line);
     ss >> label;
     if (this->isEof() || label.compare("topology:") != 0) {
@@ -40,7 +41,7 @@ unsigned TrainingData::getNextInputs(vector<double> &inputVals)
     inputVals.clear();
 
     string line;
-    getline(m_trainingDataFile, line);
+    getline(m_file, line);
     stringstream ss(line);
 
     string label;
@@ -60,7 +61,7 @@ unsigned TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
     targetOutputVals.clear();
 
     string line;
-    getline(m_trainingDataFile, line);
+    getline(m_file, line);
     stringstream ss(line);
 
     string label;

@@ -22,7 +22,7 @@ class TrainingData
 {
 public:
     explicit TrainingData(std::string_view path);
-    bool isEof(void) { return m_trainingDataFile.eof(); }
+    bool isEof(void) { return m_file.eof(); }
     void getTopology(vector<unsigned> &topology);
 
     // Returns the number of input values read from the file:
@@ -30,7 +30,7 @@ public:
     unsigned getTargetOutputs(vector<double> &targetOutputVals);
 
 private:
-    ifstream m_trainingDataFile;
+    ifstream m_file;
 };
 
 // -----------------------------------------------------------------------------
