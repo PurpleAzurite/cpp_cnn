@@ -38,7 +38,7 @@ class Network
     using Shell = std::vector<Node>;
 
 public:
-    Network(const Topology& topology);
+    Network(Topology topology);
 
 public:
     void forward(const std::vector<double>& input);

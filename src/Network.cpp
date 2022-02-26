@@ -5,6 +5,7 @@
 #include <random>
 #include <cassert>
 #include <cmath>
+#include <utility>
 // clang-format on
 
 namespace Engine {
@@ -82,8 +83,8 @@ unsigned int TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
 
 
 // Network
-Network::Network(const std::vector<unsigned int>& topology)
-    : m_topology(topology)
+Network::Network(Topology topology)
+    : m_topology(std::move(topology))
 {
     const auto nLayers = m_topology.size();
     for (unsigned long l = 0; l < nLayers; ++l)
