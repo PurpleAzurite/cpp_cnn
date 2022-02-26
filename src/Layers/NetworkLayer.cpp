@@ -31,7 +31,7 @@ void NetworkLayer::onAttach() {}
 void NetworkLayer::onUpdate(double frameTime)
 {
     (void)frameTime;
-    std::vector<double> inputVals, targetVals, resultVals;
+    std::vector<double> inputVals, targetVals;
     int trainingPass = 0;
     static std::vector<std::string> text;
 
@@ -52,8 +52,7 @@ void NetworkLayer::onUpdate(double frameTime)
                 m_net.forward(inputVals);
 
                 // Collect the net's actual output results:
-                resultVals = m_net.results();
-                text.emplace_back(vecToStr("Outputs:", resultVals));
+                text.emplace_back(vecToStr("Outputs:", m_net.results()));
 
                 // Train the net what the outputs should have been:
                 m_td.getTargetOutputs(targetVals);
