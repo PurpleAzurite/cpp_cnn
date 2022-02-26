@@ -16,6 +16,9 @@ public:
     void onAttach() override;
     void onUpdate(double frameTime) override;
     void onDetach() override;
+
+private:
+    TrainingData m_td;
 };
 
 } // namespace Engine

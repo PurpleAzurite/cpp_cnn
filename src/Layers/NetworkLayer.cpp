@@ -16,22 +16,22 @@ static void showVectorVals(string label, vector<double> &v)
 
 NetworkLayer::NetworkLayer()
     : Layer()
+    , m_td("data.dat")
 {
-    TrainingData td("data.dat");
     std::vector<unsigned int> topology;
-    td.getTopology(topology);
+    m_td.getTopology(topology);
 
     Network net(topology);
     vector<double> inputVals, targetVals, resultVals;
     int trainingPass = 0;
 
-    while (!td.isEof())
+    while (!m_td.isEof())
     {
         ++trainingPass;
         cout << endl << "Pass " << trainingPass;
 
         // Get new input data and feed it forward:
-        if (td.getNextInputs(inputVals) != topology[0])
+        if (m_td.getNextInputs(inputVals) != topology[0])
             break;
 
         showVectorVals(": Inputs:", inputVals);
@@ -42,7 +42,7 @@ NetworkLayer::NetworkLayer()
         showVectorVals("Outputs:", resultVals);
 
         // Train the net what the outputs should have been:
-        td.getTargetOutputs(targetVals);
+        m_td.getTargetOutputs(targetVals);
         showVectorVals("Targets:", targetVals);
         assert(targetVals.size() == topology.back());
 
