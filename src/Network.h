@@ -58,7 +58,7 @@ private:
         struct Connection;
 
     public:
-        Node(unsigned int index, unsigned int outputs);
+        explicit Node(unsigned int index, unsigned int outputs);
 
     public:
         void forward(const Shell& prevShell);
