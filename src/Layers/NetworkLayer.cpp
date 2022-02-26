@@ -41,12 +41,12 @@ void NetworkLayer::onUpdate(double frameTime)
         {
             while (!m_td.isEof())
             {
-                ++trainingPass;
+                if (m_td.getNextInputs(inputVals) != m_net.topology()[0])
+                    break;
+
                 text.emplace_back(std::string("Pass: " + std::to_string(trainingPass)));
 
                 // Get new input data and feed it forward:
-                if (m_td.getNextInputs(inputVals) != m_net.topology()[0])
-                    break;
 
                 text.emplace_back(vecToStr("Inputs:", inputVals));
                 m_net.forward(inputVals);
@@ -64,6 +64,8 @@ void NetworkLayer::onUpdate(double frameTime)
                 // Report how well the training is working, average over recent samples:
                 text.emplace_back(std::string("Net recenet avg. error: " +
                                               std::to_string(m_net.m_recentAvgError)));
+
+                ++trainingPass;
             }
         }
 
