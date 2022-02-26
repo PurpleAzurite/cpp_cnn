@@ -7,7 +7,7 @@
 
 namespace Engine {
 
-static std::string showVectorVals(std::string label, std::vector<double>& v)
+static std::string vecToStr(const std::string& label, const std::vector<double>& v)
 {
     std::stringstream ss;
     ss << label << " ";
@@ -48,16 +48,16 @@ void NetworkLayer::onUpdate(double frameTime)
                 if (m_td.getNextInputs(inputVals) != m_net.topology()[0])
                     break;
 
-                text.emplace_back(showVectorVals("Inputs:", inputVals));
+                text.emplace_back(vecToStr("Inputs:", inputVals));
                 m_net.forward(inputVals);
 
                 // Collect the net's actual output results:
                 resultVals = m_net.results();
-                text.emplace_back(showVectorVals("Outputs:", resultVals));
+                text.emplace_back(vecToStr("Outputs:", resultVals));
 
                 // Train the net what the outputs should have been:
                 m_td.getTargetOutputs(targetVals);
-                text.emplace_back(showVectorVals("Targets:", targetVals));
+                text.emplace_back(vecToStr("Targets:", targetVals));
                 assert(targetVals.size() == m_net.topology().back());
 
                 m_net.backward(targetVals);
