@@ -14,10 +14,12 @@ using namespace std;
 
 class TrainingData
 {
+    using Topology = std::vector<unsigned int>;
+
 public:
     explicit TrainingData(std::string_view path);
     bool isEof(void) { return m_file.eof(); }
-    std::vector<unsigned int> topology_dont_call_unless_you_know_what_your_doing();
+    Topology topology_dont_call_unless_you_know_what_your_doing();
 
     // Returns the number of input values read from the file:
     unsigned int getNextInputs(vector<double>& inputVals);
@@ -31,20 +33,21 @@ private:
 class Network
 {
     friend class NetworkLayer;
+    using Topology = std::vector<unsigned int>;
     class Node;
     using Shell = std::vector<Node>;
 
 public:
-    Network(const std::vector<unsigned int>& topology);
+    Network(const Topology& topology);
 
 public:
     void forward(const std::vector<double>& input);
     void backward(const std::vector<double>& target);
     std::vector<double> results() const;
-    inline const std::vector<unsigned int>& topology() const { return m_topology; }
+    inline const Topology& topology() const { return m_topology; }
 
 private:
-    std::vector<unsigned int> m_topology;
+    Topology m_topology;
     std::vector<Shell> m_shells;
     double m_error;
     double m_recentAvgError;
