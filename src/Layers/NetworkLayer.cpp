@@ -1,7 +1,6 @@
 // clang-format off
 #include "NetworkLayer.h"
 #include <imgui.h>
-#include <iostream>
 #include <sstream>
 #include <string>
 // clang-format on
@@ -71,8 +70,9 @@ void NetworkLayer::onUpdate(double frameTime)
         int count = 0;
         for (const auto& i : text)
         {
-            ++count;
             ImGui::Text("%s", i.c_str());
+
+            ++count;
             if (count % 5 == 0)
                 ImGui::Separator();
         }
