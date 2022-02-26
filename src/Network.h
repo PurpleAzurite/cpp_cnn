@@ -12,6 +12,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <string_view>
 
 namespace Engine {
 
@@ -20,7 +21,7 @@ using namespace std;
 class TrainingData
 {
 public:
-    TrainingData(const string filename);
+    explicit TrainingData(std::string_view path);
     bool isEof(void) { return m_trainingDataFile.eof(); }
     void getTopology(vector<unsigned> &topology);
 

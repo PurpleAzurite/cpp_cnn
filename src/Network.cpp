@@ -9,6 +9,11 @@
 namespace Engine {
 
 // Training Data
+TrainingData::TrainingData(std::string_view path)
+{
+    m_trainingDataFile.open(path.data());
+}
+
 void TrainingData::getTopology(vector<unsigned> &topology)
 {
     string line;
@@ -28,11 +33,6 @@ void TrainingData::getTopology(vector<unsigned> &topology)
     }
 
     return;
-}
-
-TrainingData::TrainingData(const string filename)
-{
-    m_trainingDataFile.open(filename.c_str());
 }
 
 unsigned TrainingData::getNextInputs(vector<double> &inputVals)
