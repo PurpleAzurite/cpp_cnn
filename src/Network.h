@@ -58,7 +58,7 @@ private:
         struct Connection;
 
     public:
-        explicit Node(unsigned int index, unsigned int outputs);
+        explicit Node(unsigned int index, unsigned int connections);
 
     public:
         void forward(const Shell& prevShell);
@@ -68,7 +68,7 @@ private:
 
     public:
         double output;
-        std::vector<Connection> outputWeights;
+        std::vector<Connection> connectionWeights;
 
     private:
         static double activationFunction(double sum);

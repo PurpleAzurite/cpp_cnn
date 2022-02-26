@@ -10,7 +10,6 @@
 
 namespace Engine {
 
-// Training Data
 TrainingData::TrainingData(std::string_view path)
     : m_file(path.data())
 {
@@ -82,7 +81,7 @@ unsigned int TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
 }
 
 
-// Network
+// -----------------------------------------------------------------------------
 Network::Network(Topology topology)
     : m_topology(std::move(topology))
 {
@@ -122,9 +121,6 @@ void Network::forward(const std::vector<double>& input)
     }
 }
 
-/** This is the network's back propagation function. It calculates net error using (RMS),
- * calculates output layer gradient, hidden layer gradients, and finally updates
- * the connection weights */
 void Network::backward(const std::vector<double>& target)
 {
     auto& output = m_shells.back();
@@ -178,17 +174,17 @@ std::vector<double> Network::results() const
     return results;
 }
 
-// Node
+// -----------------------------------------------------------------------------
 double Network::Node::eta = 0.15; // net training rate
 double Network::Node::alpha = 0.5; // momentum
 
-Network::Node::Node(unsigned int index, unsigned int outputs)
+Network::Node::Node(unsigned int index, unsigned int connections)
     : m_index(index)
 {
-    for (unsigned int i = 0; i < outputs; ++i)
-    {
-        outputWeights.emplace_back(Connection{randomWeight(), 0});
-    }
+    // In a fully connected network, the order of nodes does not matter.
+    for (unsigned int i = 0; i < connections; ++i)
+        connectionWeights.emplace_back(Connection{randomWeight(), 0});
+
     ENGINE_INFO("\tNode {} constructed", m_index);
 }
 
@@ -196,7 +192,7 @@ void Network::Node::forward(const Shell& prevShell)
 {
     auto sum = 0.0;
     for (unsigned int n = 0; n < prevShell.size(); ++n)
-        sum += prevShell[n].output * prevShell[n].outputWeights[m_index].weight;
+        sum += prevShell[n].output * prevShell[n].connectionWeights[m_index].weight;
 
     output = activationFunction(sum);
 }
@@ -218,7 +214,7 @@ void Network::Node::updateInputWeights(Shell& prev)
     for (unsigned int n = 0; n < prev.size(); ++n)
     {
         auto& node = prev[n];
-        auto& oldDeltaWeight = node.outputWeights[m_index].deltaWeight;
+        auto& oldDeltaWeight = node.connectionWeights[m_index].deltaWeight;
         double newDeltaWeight =
             eta
             * node.output
@@ -226,8 +222,8 @@ void Network::Node::updateInputWeights(Shell& prev)
             + alpha
             * oldDeltaWeight;
 
-        node.outputWeights[m_index].deltaWeight = newDeltaWeight;
-        node.outputWeights[m_index].weight += newDeltaWeight;
+        node.connectionWeights[m_index].deltaWeight = newDeltaWeight;
+        node.connectionWeights[m_index].weight += newDeltaWeight;
     }
 }
 
@@ -253,7 +249,7 @@ double Network::Node::sumDOW(const Shell& shell) const
     auto sum = 0.0;
     for (unsigned int n = 0; n < shell.size() - 1; ++n)
     {
-        sum += outputWeights[n].weight * shell[n].m_gradient;
+        sum += connectionWeights[n].weight * shell[n].m_gradient;
     }
 
     return sum;
