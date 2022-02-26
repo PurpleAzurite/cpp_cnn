@@ -1,4 +1,4 @@
 .cache
-build
+build*
 src/.cache
 src/compile_commands.json
