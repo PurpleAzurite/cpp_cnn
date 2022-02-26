@@ -46,9 +46,7 @@ void ImGuiLayer::runImGui()
 void ImGuiLayer::onUpdate(double frameTime)
 {
     auto& app = Application::instance();
-    static auto dockFlags = ImGuiDockNodeFlags_PassthruCentralNode |
-                            ImGuiDockNodeFlags_NoWindowMenuButton |
-                            ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoTabBar;
+    static auto dockFlags = ImGuiDockNodeFlags_PassthruCentralNode;
 
     ImGui::DockSpaceOverViewport(nullptr, dockFlags);
 
