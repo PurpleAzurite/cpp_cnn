@@ -18,8 +18,7 @@ NetworkLayer::NetworkLayer()
     : Layer()
     , m_td("data.dat")
 {
-    std::vector<unsigned int> topology;
-    m_td.getTopology(topology);
+    auto topology = m_td.getTopology();
 
     Network net(topology);
     vector<double> inputVals, targetVals, resultVals;

@@ -15,13 +15,14 @@ TrainingData::TrainingData(std::string_view path)
     assert(m_file.is_open());
 }
 
-void TrainingData::getTopology(vector<unsigned int> &topology)
+std::vector<unsigned int> TrainingData::getTopology()
 {
-    string line;
-    string label;
+    std::vector<unsigned int> topology;
+    std::string line;
+    std::string label;
 
-    getline(m_file, line);
-    stringstream ss(line);
+    std::getline(m_file, line);
+    std::stringstream ss(line);
     ss >> label;
     if (this->isEof() || label.compare("topology:") != 0) {
         abort();
@@ -33,7 +34,7 @@ void TrainingData::getTopology(vector<unsigned int> &topology)
         topology.push_back(n);
     }
 
-    return;
+    return topology;
 }
 
 unsigned int TrainingData::getNextInputs(vector<double> &inputVals)
