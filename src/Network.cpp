@@ -27,11 +27,13 @@ TrainingData::Topology TrainingData::topology_dont_call_unless_you_know_what_you
     std::getline(m_file, line);
     std::stringstream ss(line);
     ss >> label;
-    if (this->isEof() || label.compare("topology:") != 0) {
+    if (this->isEof() || label.compare("topology:") != 0)
+    {
         abort();
     }
 
-    while (!ss.eof()) {
+    while (!ss.eof())
+    {
         unsigned int n;
         ss >> n;
         topology.push_back(n);
@@ -40,7 +42,7 @@ TrainingData::Topology TrainingData::topology_dont_call_unless_you_know_what_you
     return topology;
 }
 
-unsigned int TrainingData::getNextInputs(vector<double> &inputVals)
+unsigned int TrainingData::getNextInputs(vector<double>& inputVals)
 {
     inputVals.clear();
 
@@ -49,10 +51,12 @@ unsigned int TrainingData::getNextInputs(vector<double> &inputVals)
     stringstream ss(line);
 
     string label;
-    ss>> label;
-    if (label.compare("in:") == 0) {
+    ss >> label;
+    if (label.compare("in:") == 0)
+    {
         double oneValue;
-        while (ss >> oneValue) {
+        while (ss >> oneValue)
+        {
             inputVals.push_back(oneValue);
         }
     }
@@ -60,7 +64,7 @@ unsigned int TrainingData::getNextInputs(vector<double> &inputVals)
     return inputVals.size();
 }
 
-unsigned int TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
+unsigned int TrainingData::getTargetOutputs(vector<double>& targetOutputVals)
 {
     targetOutputVals.clear();
 
@@ -69,17 +73,18 @@ unsigned int TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
     stringstream ss(line);
 
     string label;
-    ss>> label;
-    if (label.compare("out:") == 0) {
+    ss >> label;
+    if (label.compare("out:") == 0)
+    {
         double oneValue;
-        while (ss >> oneValue) {
+        while (ss >> oneValue)
+        {
             targetOutputVals.push_back(oneValue);
         }
     }
 
     return targetOutputVals.size();
 }
-
 
 // -----------------------------------------------------------------------------
 Network::Network(Topology topology)
@@ -132,7 +137,6 @@ void Network::backward(const std::vector<double>& target)
         m_error += delta * delta;
     }
 
-
     m_error /= output.size() - 1;
     m_error = sqrt(m_error);
 
@@ -175,7 +179,7 @@ std::vector<double> Network::results() const
 }
 
 // -----------------------------------------------------------------------------
-double Network::Node::eta = 0.15; // net training rate
+double Network::Node::eta = 0.15;  // net training rate
 double Network::Node::alpha = 0.5; // momentum
 
 Network::Node::Node(unsigned int index, unsigned int connections)
@@ -215,12 +219,7 @@ void Network::Node::updateInputWeights(Shell& prev)
     {
         auto& node = prev[n];
         auto& oldDeltaWeight = node.connectionWeights[m_index].deltaWeight;
-        double newDeltaWeight =
-            eta
-            * node.output
-            * m_gradient
-            + alpha
-            * oldDeltaWeight;
+        double newDeltaWeight = eta * node.output * m_gradient + alpha * oldDeltaWeight;
 
         node.connectionWeights[m_index].deltaWeight = newDeltaWeight;
         node.connectionWeights[m_index].weight += newDeltaWeight;
