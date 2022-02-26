@@ -23,11 +23,11 @@ class TrainingData
 public:
     explicit TrainingData(std::string_view path);
     bool isEof(void) { return m_file.eof(); }
-    void getTopology(vector<unsigned> &topology);
+    void getTopology(vector<unsigned int> &topology);
 
     // Returns the number of input values read from the file:
-    unsigned getNextInputs(vector<double> &inputVals);
-    unsigned getTargetOutputs(vector<double> &targetOutputVals);
+    unsigned int getNextInputs(vector<double> &inputVals);
+    unsigned int getTargetOutputs(vector<double> &targetOutputVals);
 
 private:
     ifstream m_file;

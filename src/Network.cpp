@@ -15,7 +15,7 @@ TrainingData::TrainingData(std::string_view path)
     assert(m_file.is_open());
 }
 
-void TrainingData::getTopology(vector<unsigned> &topology)
+void TrainingData::getTopology(vector<unsigned int> &topology)
 {
     string line;
     string label;
@@ -36,7 +36,7 @@ void TrainingData::getTopology(vector<unsigned> &topology)
     return;
 }
 
-unsigned TrainingData::getNextInputs(vector<double> &inputVals)
+unsigned int TrainingData::getNextInputs(vector<double> &inputVals)
 {
     inputVals.clear();
 
@@ -56,7 +56,7 @@ unsigned TrainingData::getNextInputs(vector<double> &inputVals)
     return inputVals.size();
 }
 
-unsigned TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
+unsigned int TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
 {
     targetOutputVals.clear();
 
