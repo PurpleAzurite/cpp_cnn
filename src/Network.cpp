@@ -87,19 +87,18 @@ Network::Network(Topology topology)
     : m_topology(std::move(topology))
 {
     const auto nLayers = m_topology.size();
-    for (unsigned long l = 0; l < nLayers; ++l)
+    for (auto l = 0u; l < nLayers; ++l)
     {
         m_shells.emplace_back(Shell{});
-        unsigned int numOutputs = l == m_topology.size() - 1 ? 0 : m_topology[l + 1];
+        auto numOutputs = l == m_topology.size() - 1 ? 0 : m_topology[l + 1];
         ENGINE_INFO("Shell constructed. Position: {}", l);
 
-        // Taking into account the bias node
-        for (unsigned int n = 0; n <= m_topology[l]; ++n)
-        {
-            m_shells.at(l).emplace_back(Node(n, numOutputs));
-        }
+        // Appending an extra bias node to each shell
+        for (auto n = 0u; n <= m_topology[l]; ++n)
+            m_shells[l].emplace_back(Node(n, numOutputs));
 
-        // set the bias outputs
+        // set the bias node's output value
+        // TODO This needs to be adjustable in real time
         m_shells.back().back().output = 1.0;
     }
 }
