@@ -61,7 +61,7 @@ void Application::onEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
     dispatcher.dispatch<WindowClosedEvent>(BIND(onWindowClosedEvent));
-    // event.log();
+    event.log();
 }
 
 bool Application::onWindowClosedEvent(Event& event)

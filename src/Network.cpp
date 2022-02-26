@@ -91,7 +91,7 @@ Network::Network(Topology topology)
     {
         m_shells.emplace_back(Shell{});
         unsigned int numOutputs = l == m_topology.size() - 1 ? 0 : m_topology[l + 1];
-        // ENGINE_INFO("Shell constructed. Position: {}", l);
+        ENGINE_INFO("Shell constructed. Position: {}", l);
 
         // Taking into account the bias node
         for (unsigned int n = 0; n <= m_topology[l]; ++n)
@@ -190,7 +190,7 @@ Network::Node::Node(unsigned int index, unsigned int outputs)
     {
         outputWeights.emplace_back(Connection{randomWeight(), 0});
     }
-    // ENGINE_INFO("\tNode {} constructed", m_index);
+    ENGINE_INFO("\tNode {} constructed", m_index);
 }
 
 void Network::Node::forward(const Shell& prevShell)
