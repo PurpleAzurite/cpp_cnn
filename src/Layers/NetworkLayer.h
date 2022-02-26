@@ -19,6 +19,7 @@ public:
 
 private:
     TrainingData m_td;
+    Network m_net;
 };
 
 } // namespace Engine

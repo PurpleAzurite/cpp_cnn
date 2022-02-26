@@ -15,8 +15,10 @@ TrainingData::TrainingData(std::string_view path)
     assert(m_file.is_open());
 }
 
-std::vector<unsigned int> TrainingData::getTopology()
+std::vector<unsigned int> TrainingData::topology_dont_call_unless_you_know_what_your_doing()
 {
+    m_file.seekg(0);
+
     std::vector<unsigned int> topology;
     std::string line;
     std::string label;

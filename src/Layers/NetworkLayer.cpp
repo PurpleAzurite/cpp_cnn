@@ -17,10 +17,8 @@ static void showVectorVals(string label, vector<double> &v)
 NetworkLayer::NetworkLayer()
     : Layer()
     , m_td("data.dat")
+    , m_net(m_td.topology_dont_call_unless_you_know_what_your_doing())
 {
-    auto topology = m_td.getTopology();
-
-    Network net(topology);
     vector<double> inputVals, targetVals, resultVals;
     int trainingPass = 0;
 
@@ -30,25 +28,25 @@ NetworkLayer::NetworkLayer()
         cout << endl << "Pass " << trainingPass;
 
         // Get new input data and feed it forward:
-        if (m_td.getNextInputs(inputVals) != topology[0])
+        if (m_td.getNextInputs(inputVals) != m_net.topology()[0])
             break;
 
         showVectorVals(": Inputs:", inputVals);
-        net.forward(inputVals);
+        m_net.forward(inputVals);
 
         // Collect the net's actual output results:
-        resultVals = net.results();
+        resultVals = m_net.results();
         showVectorVals("Outputs:", resultVals);
 
         // Train the net what the outputs should have been:
         m_td.getTargetOutputs(targetVals);
         showVectorVals("Targets:", targetVals);
-        assert(targetVals.size() == topology.back());
+        assert(targetVals.size() == m_net.topology().back());
 
-        net.backward(targetVals);
+        m_net.backward(targetVals);
 
         // Report how well the training is working, average over recent samples:
-        cout << "Net recent average error: " << net.m_recentAvgError << endl;
+        cout << "Net recent average error: " << m_net.m_recentAvgError << endl;
     }
 }
 
