@@ -78,6 +78,23 @@ void NetworkLayer::onUpdate(double frameTime)
         }
     }
     ImGui::End();
+
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("Export"))
+        {
+            if (ImGui::MenuItem("Results"))
+            {
+                // TODO this needs to get the results from net directly, once that class has a better way of
+                // storing its output values
+                // Removing implementation for now
+            }
+
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMainMenuBar();
+    }
 }
 
 void NetworkLayer::onDetach() {}
