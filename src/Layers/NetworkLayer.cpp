@@ -47,7 +47,6 @@ void NetworkLayer::onUpdate(double frameTime)
                 text.emplace_back(std::string("Pass: " + std::to_string(trainingPass)));
 
                 // Get new input data and feed it forward:
-
                 text.emplace_back(vecToStr("Inputs:", inputVals));
                 m_net.forward(inputVals);
 
@@ -87,9 +86,8 @@ void NetworkLayer::onUpdate(double frameTime)
         {
             if (ImGui::MenuItem("Results"))
             {
-                // TODO this needs to get the results from net directly, once that class has a better way of
-                // storing its output values
-                // Removing implementation for now
+                // TODO this needs to get the results from net directly, once that class has a
+                // better way of storing its output values Removing implementation for now
             }
 
             ImGui::EndMenu();
