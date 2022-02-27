@@ -20,20 +20,13 @@ unsigned long TrainingData::getNextInputs(vector<double>& inputVals)
 {
     inputVals.clear();
 
-    string line;
-    getline(m_file, line);
-    stringstream ss(line);
+    std::string line;
+    std::getline(m_file, line);
+    std::stringstream ss(line);
 
-    string label;
-    ss >> label;
-    if (label.compare("in:") == 0)
-    {
-        double oneValue;
-        while (ss >> oneValue)
-        {
+    double oneValue;
+    while (ss >> oneValue)
             inputVals.push_back(oneValue);
-        }
-    }
 
     return inputVals.size();
 }
@@ -42,20 +35,13 @@ unsigned long TrainingData::getTargetOutputs(vector<double>& targetOutputVals)
 {
     targetOutputVals.clear();
 
-    string line;
-    getline(m_file, line);
-    stringstream ss(line);
+    std::string line;
+    std::getline(m_file, line);
+    std::stringstream ss(line);
 
-    string label;
-    ss >> label;
-    if (label.compare("out:") == 0)
-    {
-        double oneValue;
-        while (ss >> oneValue)
-        {
-            targetOutputVals.push_back(oneValue);
-        }
-    }
+    double oneValue;
+    while (ss >> oneValue)
+        targetOutputVals.push_back(oneValue);
 
     return targetOutputVals.size();
 }
