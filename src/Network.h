@@ -19,7 +19,6 @@ class TrainingData
 public:
     explicit TrainingData(std::string_view path);
     bool isEof(void) { return m_file.eof(); }
-    Topology topology_dont_call_unless_you_know_what_your_doing();
 
     // Returns the number of input values read from the file:
     unsigned long getNextInputs(vector<double>& inputVals);

@@ -22,7 +22,7 @@ static std::string vecToStr(const std::string& label, const std::vector<double>&
 NetworkLayer::NetworkLayer()
     : Layer()
     , m_td("data.dat")
-    , m_net(m_td.topology_dont_call_unless_you_know_what_your_doing())
+    , m_net({2, 4, 1})
 {
 }
 

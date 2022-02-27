@@ -16,32 +16,6 @@ TrainingData::TrainingData(std::string_view path)
     assert(m_file.is_open());
 }
 
-TrainingData::Topology TrainingData::topology_dont_call_unless_you_know_what_your_doing()
-{
-    m_file.seekg(0);
-
-    Topology topology;
-    std::string line;
-    std::string label;
-
-    std::getline(m_file, line);
-    std::stringstream ss(line);
-    ss >> label;
-    if (this->isEof() || label.compare("topology:") != 0)
-    {
-        abort();
-    }
-
-    while (!ss.eof())
-    {
-        unsigned int n;
-        ss >> n;
-        topology.push_back(n);
-    }
-
-    return topology;
-}
-
 unsigned long TrainingData::getNextInputs(vector<double>& inputVals)
 {
     inputVals.clear();
