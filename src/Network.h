@@ -48,6 +48,8 @@ public:
 private:
     Topology m_topology;
     std::vector<Shell> m_shells;
+    std::vector<double> m_inputVals;
+    std::vector<double> m_targetVals;
     double m_error;
     double m_recentAvgError;
     double m_recentAvgSmoothingFactor;

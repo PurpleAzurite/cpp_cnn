@@ -31,7 +31,6 @@ void NetworkLayer::onAttach() {}
 void NetworkLayer::onUpdate(double frameTime)
 {
     (void)frameTime;
-    std::vector<double> inputVals, targetVals;
     int trainingPass = 0;
     static std::vector<std::string> text;
 
@@ -41,24 +40,24 @@ void NetworkLayer::onUpdate(double frameTime)
         {
             while (!m_td.isEof())
             {
-                if (m_td.getNextInputs(inputVals) != m_net.topology()[0])
+                if (m_td.getNextInputs(m_net.m_inputVals) != m_net.topology()[0])
                     break;
 
                 text.emplace_back(std::string("Pass: " + std::to_string(trainingPass)));
 
                 // Get new input data and feed it forward:
-                text.emplace_back(vecToStr("Inputs:", inputVals));
-                m_net.forward(inputVals);
+                text.emplace_back(vecToStr("Inputs:", m_net.m_inputVals));
+                m_net.forward(m_net.m_inputVals);
 
                 // Collect the net's actual output results:
                 text.emplace_back(vecToStr("Outputs:", m_net.results()));
 
                 // Train the net what the outputs should have been:
-                m_td.getTargetOutputs(targetVals);
-                text.emplace_back(vecToStr("Targets:", targetVals));
-                assert(targetVals.size() == m_net.topology().back());
+                m_td.getTargetOutputs(m_net.m_targetVals);
+                text.emplace_back(vecToStr("Targets:", m_net.m_targetVals));
+                assert(m_net.m_targetVals.size() == m_net.topology().back());
 
-                m_net.backward(targetVals);
+                m_net.backward(m_net.m_targetVals);
 
                 // Report how well the training is working, average over recent samples:
                 text.emplace_back(std::string("Net recenet avg. error: " +
